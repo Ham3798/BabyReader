@@ -1,3 +1,14 @@
+function readFile(filename){
+    var fso = new ActiveXObject("Scripting.FileSystemObject");    
+    var ForReading = 1;
+    var f1 = fso.OpenTextFile(filename, ForReading);
+    var text = f1.ReadAll();
+    f1.close();
+    return text;
+}
+
+
+
 // ---------화면 전환 함수 미구현-----------
 // function test(){
 // 	$("#navbarContent").on("click","li",function(e){

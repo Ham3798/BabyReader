@@ -1,11 +1,19 @@
+.bi {
+vertical-align: -.125em;
+fill: currentColor;
+}
+
+#StylePage {
+	display: none;
+}
+
+#SettingPage {
+	display: none;
+}
+
 /* nav 영역 css */
 #navbarContent>ul>li.active>a{
 	color: #5161ce;
 	background-color: transparent;
 	transition: all 0.1s;
 }
-
-  .bi {
-	vertical-align: -.125em;
-	fill: currentColor;
-  }
