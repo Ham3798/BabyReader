@@ -3,11 +3,7 @@ vertical-align: -.125em;
 fill: currentColor;
 }
 
-#StylePage {
-	display: none;
-}
-
-#SettingPage {
+#DashPage, #StylePage, #SettingPage, #UserPage {
 	display: none;
 }
 

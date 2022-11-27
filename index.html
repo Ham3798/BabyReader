@@ -55,42 +55,42 @@
         <div class="d-flex">
 
           <!-- 임시로 부스트랩 아이콘 사용 -->
-          <a href="/" class="d-flex align-items-center me-lg-auto text-white text-decoration-none">
+          <a href="#home" class="d-flex align-items-center me-lg-auto text-white text-decoration-none">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
           </a>
 
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small" id="nav_links">
             <!-- dashboard -->
             <li>
-              <a href="#dashboard" class="nav-link text-white" id="dashboard">
+              <a href="#dashboard" class="nav-link text-white" id="nav_dashboard" name="DashPage">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#dashboard"></use></svg>
                 Dashboard
               </a>
             </li>
             <!-- books -->
             <li>
-              <a href="#books" class="nav-link text-secondary" id="books">
+              <a href="#books" class="nav-link text-secondary" id="nav_books" name="BooksPage">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#books"></use></svg>
                 Books
               </a>
             </li>
             <!-- style(font) -->
             <li>
-              <a href="#style" class="nav-link text-white" id="style">
+              <a href="#style" class="nav-link text-white" id="nav_style" name="StylePage">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#style"></use></svg>
                 Style
               </a>
             </li>
             <!-- setting -->
             <li>
-              <a href="#setting" class="nav-link text-white" id="setting">
+              <a href="#setting" class="nav-link text-white" id="nav_setting" name="SettingPage">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#setting"></use></svg>
                 Setting
               </a>
             </li>
             <!-- user -->
             <li>
-              <a href="#user" class="nav-link text-white" id="user">
+              <a href="#user" class="nav-link text-white" id="nav_user" name="UserPage">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#user"></use></svg>
                 User
               </a>
@@ -100,6 +100,24 @@
       </div>
     </div>
   </nav>
+
+
+  <!-- Dash 페이지 -->
+  <div class="container py-4" id="DashPage">
+
+    <!-- 최근 목록 -->
+    <header class="pb-3 mb-4 border-bottom">
+      <a class="d-flex align-items-center text-dark text-decoration-none">
+        <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#dashboard"></use></svg>
+        <span class="fs-4">Dashoard</span>
+      </a>
+    </header>
+
+    
+    <footer class="pt-3 mt-4 text-muted border-top">
+      &copy; Books
+    </footer>
+  </div>
 
   <!-- Books 페이지 -->
   <div class="container py-4" id="BooksPage">
@@ -119,11 +137,47 @@
       </div>
     </div>
 
+    <!-- 내부 Storage 항목 -->
+    <header class="pb-3 mb-4 border-bottom d-flex">
+      <a class="d-flex align-items-center text-dark text-decoration-none me-lg-auto">
+        <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#books"></use></svg>
+        <span class="fs-4">Local Storage</span>
+      </a>
+
+      <!-- 내부 Storage 항목 설정 버튼 -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          정렬 설정
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">시간순서 정렬</a></li>
+          <li><a class="dropdown-item" href="#">이름순서 정렬</a></li>
+          <li><a class="dropdown-item" href="#">역방향 정렬</a></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          보기 설정
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">아이콘</a></li>
+          <li><a class="dropdown-item" href="#">작은 아이콘</a></li>
+          <li><a class="dropdown-item" href="#">목록</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="p-5 mb-4 bg-light rounded-3" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+      <div class="container-fluid py-5">
+          내부 스토리지 위치를 지정하여 해당 위치의 txt, epub 파일을 로드함
+      </div>
+    </div>
+
     <!-- Cloud 항목 -->
     <header class="pb-3 mb-4 border-bottom d-flex">
       <a class="d-flex align-items-center text-dark text-decoration-none me-lg-auto">
         <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#books"></use></svg>
-        <span class="fs-4">내 서재1</span>
+        <span class="fs-4">Cloud</span>
       </a>
 
       <!-- Cloud 항목 설정 버튼 -->
@@ -155,44 +209,6 @@
       </div>
     </div>
 
-    <!-- 내부 Storage 항목 -->
-    <header class="pb-3 mb-4 border-bottom d-flex">
-      <a class="d-flex align-items-center text-dark text-decoration-none me-lg-auto">
-        <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#books"></use></svg>
-        <span class="fs-4">내 서재2</span>
-      </a>
-
-      <!-- 내부 Storage 항목 설정 버튼 -->
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          정렬 설정
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">시간순서 정렬</a></li>
-          <li><a class="dropdown-item" href="#">이름순서 정렬</a></li>
-          <li><a class="dropdown-item" href="#">역방향 정렬</a></li>
-        </ul>
-      </div>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          보기 설정
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">아이콘</a></li>
-          <li><a class="dropdown-item" href="#">작은 아이콘</a></li>
-          <li><a class="dropdown-item" href="#">목록</a></li>
-        </ul>
-      </div>
-    </header>
-
-    <div class="p-5 mb-4 bg-light rounded-3">
-      <div class="container-fluid py-5">
-          내부 스토리지 위치를 지정하여 해당 위치의 txt, epub 파일을 로드함
-      </div>
-    </div>
-
-    
-
     <footer class="pt-3 mt-4 text-muted border-top">
       &copy; Books
     </footer>
@@ -205,7 +221,7 @@
     <!-- Style Header -->
     <header class="pb-3 mb-4 border-bottom d-flex">
         <a class="d-flex align-items-center text-dark text-decoration-none me-lg-auto">
-          <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#setting"></use></svg>
+          <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#style"></use></svg>
           <span class="fs-4">Setting</span>
         </a>
         <button type="button" class="btn btn-outline-dark me-2">기본값</button>
@@ -345,6 +361,24 @@
     </footer>
   </div>
 
+    <!-- user 페이지 -->
+    <div class="container py-4" id="UserPage">
+
+      <!-- 최근 목록 -->
+      <header class="pb-3 mb-4 border-bottom">
+        <a class="d-flex align-items-center text-dark text-decoration-none">
+          <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#user"></use></svg>
+          <span class="fs-4">User</span>
+        </a>
+      </header>
+  
+      
+      <footer class="pt-3 mt-4 text-muted border-top">
+        &copy; Books
+      </footer>
+    </div>
+
+  <script src="./drop.js"></script>
   <script src="./script.js"></script>
 </body>
 

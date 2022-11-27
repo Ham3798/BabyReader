@@ -1,54 +1,24 @@
-function readFile(filename){
-    var fso = new ActiveXObject("Scripting.FileSystemObject");    
-    var ForReading = 1;
-    var f1 = fso.OpenTextFile(filename, ForReading);
-    var text = f1.ReadAll();
-    f1.close();
-    return text;
+const nav_links_ChildNodes = document.getElementById("nav_links").getElementsByTagName("a");
+
+
+// nav 영역 클릭시 화면 전환 function
+function move_navs(event) {
+    const cur = document.getElementsByClassName("text-secondary")[0];
+    const to = event.currentTarget;
+
+    if(cur == to) {
+        return;
+    }
+
+    to.classList.add("text-secondary");
+    to.classList.remove("text-white");
+    cur.classList.remove("text-secondary");
+    cur.classList.add("text-white");
+    
+    document.getElementById(cur.name).style.display = "none";
+    document.getElementById(to.name).style.display = "block";
 }
 
-
-
-// ---------화면 전환 함수 미구현-----------
-// function test(){
-// 	$("#navbarContent").on("click","li",function(e){
-// 		$('#navbarContent ul li').removeClass("active");
-// 		$(this).addClass('active');
-// 	});
-// }
-// $(document).ready(function(){
-// 	setTimeout(function(){ test(); });
-// });
-
-// jQuery(document).ready(function($){
-// 	// Get current path and find target link
-// 	var path = window.location.pathname.split("/").pop();
-
-// 	// Account for home page with empty path
-// 	if ( path == '' ) {
-// 		path = 'index.html';
-// 	}
-
-// 	var target = $('#navbarContent ul li a[href="'+path+'"]');
-// 	// Add active class to target link
-// 	target.parent().addClass('active');
-	
-// 	console.log(path)
-// 	console.log(target)
-// });
-
-
-
-
-// 로컬 파일중 txt, epub 파일을 가져오는 함수
-//  function loadLocalData() {}
-
-
-
-// Cloud에 저장된 파일을 가져오는 함수
-
-//  function loadCloudData() {}
-
-
-// txt 파일 클릭 시 해당 데이터 로드
-//  function loadTxtFile() {}
+for(var i=0;i<nav_links_ChildNodes.length;i++) {
+    nav_links_ChildNodes[i].addEventListener("click", move_navs);
+}
