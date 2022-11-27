@@ -137,14 +137,14 @@
       </div>
     </div>
 
-    <!-- 내부 Storage 항목 -->
+    <!-- 서재 항목 -->
     <header class="pb-3 mb-4 border-bottom d-flex">
       <a class="d-flex align-items-center text-dark text-decoration-none me-lg-auto">
         <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#books"></use></svg>
         <span class="fs-4">Local Storage</span>
       </a>
 
-      <!-- 내부 Storage 항목 설정 버튼 -->
+      <!-- 서재 항목 설정 버튼 -->
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           정렬 설정
@@ -167,46 +167,10 @@
       </div>
     </header>
 
-    <div class="p-5 mb-4 bg-light rounded-3" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-      <div class="container-fluid py-5">
-          내부 스토리지 위치를 지정하여 해당 위치의 txt, epub 파일을 로드함
-      </div>
-    </div>
-
-    <!-- Cloud 항목 -->
-    <header class="pb-3 mb-4 border-bottom d-flex">
-      <a class="d-flex align-items-center text-dark text-decoration-none me-lg-auto">
-        <svg class="bi d-block me-2" width="40" height="32" viewBox="0 0 118 94" role="img"><use xlink:href="#books"></use></svg>
-        <span class="fs-4">Cloud</span>
-      </a>
-
-      <!-- Cloud 항목 설정 버튼 -->
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          정렬 설정
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">시간순서 정렬</a></li>
-          <li><a class="dropdown-item" href="#">이름순서 정렬</a></li>
-          <li><a class="dropdown-item" href="#">역방향 정렬</a></li>
-        </ul>
-      </div>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          보기 설정
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">아이콘</a></li>
-          <li><a class="dropdown-item" href="#">작은 아이콘</a></li>
-          <li><a class="dropdown-item" href="#">목록</a></li>
-        </ul>
-      </div>
-    </header>
-
-    <div class="p-5 mb-4 bg-light rounded-3">
-      <div class="container-fluid py-5">
-          클라우드에 저장된 항목을 불러옴
-      </div>
+    <div class="container-fluid py-3 p-4 mb-4 bg-light rounded-3" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+        <div class="row" id="upload">
+        </div>
+        내부 스토리지 위치를 지정하여 해당 위치의 txt, epub 파일을 로드함
     </div>
 
     <footer class="pt-3 mt-4 text-muted border-top">
@@ -378,8 +342,7 @@
       </footer>
     </div>
 
-  <script src="./drop.js"></script>
-  <script src="./script.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
