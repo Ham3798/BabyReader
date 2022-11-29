@@ -26,9 +26,10 @@ function dropHandler(ev) {
             data.push(file);
 
             let formData = new FormData();
-                
+            
             formData.append("file", file);
             fetch('./', {method: "POST", body: formData});
+            console.log("upload success");
         }
       });
     } else {
