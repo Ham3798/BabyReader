@@ -24,6 +24,11 @@ function dropHandler(ev) {
             const file = item.getAsFile();
             create_book(file);
             data.push(file);
+
+            let formData = new FormData();
+                
+            formData.append("file", file);
+            fetch('./', {method: "POST", body: formData});
         }
       });
     } else {

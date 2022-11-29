@@ -1,47 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>File(s) size</title>
-<style>
-    .visually-hidden {
-        position: absolute !important;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px);
-      }
-      
-      input.visually-hidden:focus + label {
-        outline: thin dotted;
-      }
-      
-</style>
-</head>
-<input type="file" id="file">
-
-
+<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
 <script>
-
-
-    function handleFiles(files) {
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-      
-          if (!file.type.startsWith('image/')){ continue }
-      
-          const img = document.createElement("img");
-          img.classList.add("obj");
-          img.file = file;
-          preview.appendChild(img); // "preview"가 결과를 보여줄 div 출력이라 가정.
-      
-          const reader = new FileReader();
-          reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-          reader.readAsDataURL(file);
-        }
-      }
-      
-    document.getElementById("file").addEventListener("change", handleFiles);
-    </script>
-</body>
-</html>
+  var book = ePub("url/to/book/");
+  var rendition = book.renderTo("area");
+  rendition.display();
+</script>
