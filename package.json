@@ -1,0 +1,22 @@
+{
+  "name": "babyreader",
+  "version": "1.0.0",
+  "description": "text reading aplication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ham3798/babyReader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ham3798/babyReader/issues"
+  },
+  "homepage": "https://github.com/Ham3798/babyReader#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
