@@ -100,8 +100,6 @@ router.route('/process/upload').post(upload.array('file',1),function(req,res){
                 }
             }else{
                 // 배열에 들어가 있지 않은 경우 (현재 설정에서는 해당 없음)
-                console.log('파일 갯수 : 1');
-                
                 originalname = files[index].originalname;
                 filename = files[index].filename;
                 mimetype = files[index].mimetype;
@@ -128,14 +126,27 @@ router.route('/process/upload').post(upload.array('file',1),function(req,res){
             size : size
         }
 
+        
+        var ip = require("ip");
+        const JsonName = ip.address().replace(/\./g, '');
+        const JsonPath = "./data/" + JsonName + '.json';
         const bookJson = JSON.stringify(bookdata);
-        const dataBuffer = fs.writeFileSync('data.json', bookJson);
-        console.log(dataBuffer);
-        // fs.appendFile('/data/test1.txt', 'data to append', function (err) {
-        // if (err) throw err;
-        // console.log('The "data to append" was appended to file!');
-        // });
-
+        
+        
+        fs.open(JsonPath,'a+',function(err,fd){
+            if(err) throw err;
+            if(fd == '9'){
+                console.log('file create.');
+            }else{
+                fs.readFile(JsonPath, 'utf8', function(err, data) {
+                  console.log(data);
+                });
+            }
+        });
+        fs.writeFile(JsonPath, bookJson, 'utf8', function(error){
+            console.log('write end')
+        });
+        
     }
     catch(err){
         console.dir(err.stack);
@@ -143,15 +154,8 @@ router.route('/process/upload').post(upload.array('file',1),function(req,res){
 });
 
 
-// const { application } = require('express');
-// const express = require('express');
-// const app = express();
-// const port = 3000;
 
 app.listen(3000, () => {
     console.log(`server is running http://localhost:3000`);
 });
 app.use('/', router);
-// app.use('/', express.static(__dirname + "/source"));
-// app.use('/public', express.static(__dirname + "/public"));
-// app.use('/uploads', express.static(__dirname + "/uploads"));
