@@ -1,10 +1,18 @@
 const nav_links_ChildNodes = document.getElementById("nav_links").getElementsByTagName("a");
-var data = localStorage.getItem("data");
+var JsonArray;
 
+// 현재 유저의 정보를 서버에서 가져온다.
+var res = fetch('/process/getInfo', {method: "GET"});
+fetch("/process/getInfo", {method: "GET"})
+          .then(response => response.json())
+          .then(data => JsonArray = data)
+          .catch(error => console.log(error));
+console.log(res);
 
 // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop
 // drag and drop api 예제
 
+// drag and drop 시 서버에 파일 업로드
 function create_book(file) {
     var book = document.createElement("div");
     book.textContent = file.name;
@@ -28,8 +36,9 @@ function dropHandler(ev) {
             let formData = new FormData();
             
             formData.append("file", file);
-            fetch('/process/upload', {method: "POST", body: formData});
+            var res = fetch('/process/upload', {method: "POST", body: formData});
             console.log("upload success");
+            console.log(res);
         }
       });
     } else {
@@ -66,15 +75,8 @@ function move_navs(event) {
 
 
 
+// nav 영역 이벤트 헨들러
 for(var i=0;i<nav_links_ChildNodes.length;i++) {
     nav_links_ChildNodes[i].addEventListener("click", move_navs);
 }
 
-if(data == null) {
-    data = Array();
-}
-else {
-    for(var i=0;i<data.length;i++) {
-        data[i];
-    }
-}

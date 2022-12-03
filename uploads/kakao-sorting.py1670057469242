@@ -1,0 +1,10 @@
+n = int(input())
+a = list()
+
+for _ in range(n):
+    i = input()
+    a.append(i)
+
+a = list(set(a))
+a = sorted(a, key=lambda x:(len(x), x))
+print(a)

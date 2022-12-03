@@ -21,6 +21,7 @@ var fs = require('fs');
  
 // 클라이언트에서 ajax로 요청했을 때 CORS(다중 서버 접속) 지원
 var cors = require('cors');
+const { json } = require('express');
 
 // 익스프레스 객체 생성
 var app = express();
@@ -129,7 +130,7 @@ router.route('/process/upload').post(upload.array('file',1),function(req,res){
         
         var ip = require("ip");
         const JsonName = ip.address().replace(/\./g, '');
-        const JsonPath = "./data/" + JsonName + '.json';
+        const JsonPath = "./data/book/" + JsonName + '.json';
         const bookJson = JSON.stringify(bookdata);
         
         
@@ -143,7 +144,7 @@ router.route('/process/upload').post(upload.array('file',1),function(req,res){
                 });
             }
         });
-        fs.writeFile(JsonPath, bookJson, 'utf8', function(error){
+        fs.appendFile(JsonPath, bookJson+"\n", 'utf8', function(error){
             console.log('write end')
         });
         
@@ -154,6 +155,34 @@ router.route('/process/upload').post(upload.array('file',1),function(req,res){
 });
 
 
+router.get('/process/getInfo').get(function(req,res) {
+    
+  });
+
+app.get('/process/getInfo', (req, res, next) => {
+    var ip = require("ip");
+    const JsonName = ip.address().replace(/\./g, '');
+    const JsonPath = "./data/book/" + JsonName + '.json';
+
+    console.log('JsonPath : ' + JsonPath);
+
+    const fs = require('fs')
+    if(fs.existsSync(JsonPath)) {
+        const Json = fs.readFileSync(JsonPath);
+        const Json_array = Json.toString().split("\n");
+        var array = [];
+
+        Json_array.forEach(curJson =>{
+            console.log(curJson);
+            if(curJson != "") {
+                array.push(JSON.parse(curJson));
+            }
+        });
+        console.log(array);
+        console.log(JSON.stringify(array));
+        res.send(JSON.stringify(array));
+    }
+});
 
 app.listen(3000, () => {
     console.log(`server is running http://localhost:3000`);
