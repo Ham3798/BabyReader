@@ -173,12 +173,10 @@ app.get('/process/getInfo', (req, res, next) => {
         var array = [];
 
         Json_array.forEach(curJson =>{
-            console.log(curJson);
             if(curJson != "") {
                 array.push(JSON.parse(curJson));
             }
         });
-        console.log(array);
         console.log(JSON.stringify(array));
         res.send(JSON.stringify(array));
     }
