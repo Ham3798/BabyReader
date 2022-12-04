@@ -6,7 +6,7 @@ var JsonArray;
 // drag and drop api 예제
 
 // drag and drop 시 서버에 파일 업로드
-async function load() {
+async function loadInfo() {
   // nav 영역 이벤트 헨들러
   for(var i=0;i<nav_links_ChildNodes.length;i++) {
     nav_links_ChildNodes[i].addEventListener("click", move_navs);
@@ -15,26 +15,42 @@ async function load() {
 
   // 현재 유저의 정보를 서버에서 가져온다.
   var res = fetch('/process/getInfo', {method: "GET"});
-   await fetch("/process/getInfo", {method: "GET"})
+  await fetch("/process/getInfo", {method: "GET"})
             .then(response => response.json())
             .then(data => JsonArray = data)
             .catch(error => console.log(error));
-  console.log(res);
-
-  console.log(JsonArray);
-  // 업로드 된 책 목록 불러오기
-  for(var i=0;i<JsonArray.length;i++) {
-    console.log(JsonArray[i]);
-    create_book(JsonArray[i].originalname);
-  }
+  create_book();
 }
 
-function create_book(name) {
+function create_book() {
+  var upload = document.getElementById("upload");
+  var books = document.createElement("div");
+  books.className = "row";
+  
+  for(var i=0;i<JsonArray.length;i++) {
+    console.log(JsonArray[i]);
     var book = document.createElement("div");
-    book.textContent = name;
-    book.className = "m-1 mb-4 bg-light row-lg-2 book";
+    var book_title = document.createElement("div");
+    var book_img = document.createElement("img");
+    var book_a = document.createElement("a");
 
-    document.getElementById("upload").appendChild(book);
+    book_a.href = "./readPage.html?filename=" + JsonArray[i].filename;
+    book_img.className = "jb-image";
+    book_img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvwcIfihB3dpbPWS9M-j3qEJkKbw-_Sy4vAIghK9D_67dMjjKCZUMPcOFBmvP2yIabDi0&usqp=CAU";
+    book_title.textContent = JsonArray[i].originalname;
+    book.className = "jb-wrap";
+    book_title.className = "jb-text";
+
+    book_a.appendChild(book_img);
+    book.appendChild(book_a);
+    book.appendChild(book_title);
+    books.appendChild(book);
+  }
+
+  while (upload.hasChildNodes()) {   
+    upload.removeChild(upload.firstChild);
+}
+  upload.appendChild(books);
 }
 
 function dropHandler(ev) {
@@ -44,15 +60,11 @@ function dropHandler(ev) {
       [...ev.dataTransfer.items].forEach((item, i) => {
         if (item.kind === 'file') {
             const file = item.getAsFile();
-            create_book(file.name);
-            data.push(file);
-
             let formData = new FormData();
-            
             formData.append("file", file);
             var res = fetch('/process/upload', {method: "POST", body: formData});
-            console.log("upload success");
-            console.log(res);
+            loadInfo();
+            create_book();
         }
       });
     } else {
@@ -89,4 +101,4 @@ function move_navs(event) {
 
 
 
-load();
+loadInfo();
