@@ -30,10 +30,11 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
  
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded( {extended : false } ));
+app.use(express.json()); 
  
 // body-parser를 이용해 application/json 파싱
-app.use(bodyParser.json())
+app.use(bodyParser.json());
  
 // public 폴더와 upload 폴더 오픈
 app.use('/', express.static(__dirname + "/source"));
@@ -76,12 +77,65 @@ var upload = multer({
 var router = express.Router();
 
 
+router.route('/process/getBook').post(upload.array('file_name',1), function(req, res) {
+    file_name = req.headers.referer.split("=")[1];
+    file_path = "./uploads/" + file_name;
+    body = req;
+    console.log(req.body.file_name);
+
+    const fs = require('fs')
+    if(fs.existsSync(file_path)) {
+        const data = fs.readFileSync(file_path).toString('utf-8');
+        // console.log(data);
+        res.send(JSON.stringify(data));
+    }
+});
+
+router.route('/process/setScroll').post(upload.array('cur_y',1), function(req, res) {
+    file_name = req.headers.referer.split("=")[1].split(".")[0];
+    file_path = "./data/record/" + file_name+".json";
+    let cur_y = { "cur_y" : parseInt(req.body.cur_y)};
+    console.log(cur_y,file_path);
+    var fs = require('fs');
+
+    let JsonData = JSON.stringify(cur_y);
+
+    fs.writeFile(file_path, JsonData, 'utf8', function(error){
+        console.log('write end');
+    });
+    res.send(JsonData);
+});
+    
+router.route('/process/getScroll').post(upload.array('cur_y',1), function(req, res) {
+    file_name = req.headers.referer.split("=")[1].split(".")[0];
+    file_path = "./data/record/" + file_name+".json";
+
+
+    const JsonData = fs.readFileSync(file_path, 'utf8', function(error){});
+    console.log(JsonData);
+    res.send(JsonData);
+});
+
+router.route('/process/getBookInfo').post(upload.array('file_name',1), function(req, res) {
+    file_name = req.headers.referer.split("=")[1];
+    file_path = "./uploads/" + file_name;
+    body = req;
+    console.log(req.body.file_name);
+
+    const fs = require('fs')
+    if(fs.existsSync(file_path)) {
+        const data = fs.readFileSync(file_path).toString('utf-8');
+        // console.log(data);
+        res.send(JSON.stringify(data));
+    }
+});
+
 router.route('/process/upload').post(upload.array('file',1),function(req,res){
     
     try{
         var files = req.files;
         
-        console.dir('#==== 업로드된 첫번째 파일 정보 ====#');
+        console.dir('#==== 업로드된 파일 정보 ====#');
         console.dir(req.files[0]);
         console.dir('#=====#');
         
@@ -155,9 +209,6 @@ router.route('/process/upload').post(upload.array('file',1),function(req,res){
 });
 
 
-router.get('/process/getInfo').get(function(req,res) {
-    
-  });
 
 app.get('/process/getInfo', (req, res, next) => {
     var ip = require("ip");
@@ -182,7 +233,10 @@ app.get('/process/getInfo', (req, res, next) => {
     }
 });
 
+
+
 app.listen(3000, () => {
     console.log(`server is running http://localhost:3000`);
 });
+
 app.use('/', router);

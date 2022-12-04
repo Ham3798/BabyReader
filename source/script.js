@@ -62,7 +62,7 @@ function dropHandler(ev) {
             const file = item.getAsFile();
             let formData = new FormData();
             formData.append("file", file);
-            var res = fetch('/process/upload', {method: "POST", body: formData});
+            fetch('/process/upload', {method: "POST", body: formData});
             loadInfo();
             create_book();
         }
