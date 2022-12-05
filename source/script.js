@@ -83,20 +83,20 @@ function dropHandler(ev) {
 
 // nav 영역 클릭시 화면 전환 function
 function move_navs(event) {
-    const cur = document.getElementsByClassName("text-secondary")[0];
-    const to = event.currentTarget;
+  const cur = document.getElementsByClassName("text-secondary")[0];
+  const to = event.currentTarget;
 
-    if(cur == to) {
-        return;
-    }
+  if(cur == to) {
+      return;
+  }
 
-    to.classList.add("text-secondary");
-    to.classList.remove("text-white");
-    cur.classList.remove("text-secondary");
-    cur.classList.add("text-white");
-    
-    document.getElementById(cur.name).style.display = "none";
-    document.getElementById(to.name).style.display = "block";
+  to.classList.add("text-secondary");
+  to.classList.remove("text-white");
+  cur.classList.remove("text-secondary");
+  cur.classList.add("text-white");
+  
+  document.getElementById(cur.name).style.display = "none";
+  document.getElementById(to.name).style.display = "block";
 }
 
 
